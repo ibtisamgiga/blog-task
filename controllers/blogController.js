@@ -13,14 +13,14 @@ const blog_index=async(req,res)=>{
 }
 
 const blog_details= async(req, res) => {
-    //const blog=await Blog.find({_id:req.params.id})
     const blog=await Blog.findById(req.params.id)
     console.log(blog)
+   
+    if (!blog) return res.status(404).render('404', { title: '404' });
     res.render('blogs/details', { title: 'details' ,blog:blog});
   
-   // res.send(blog)
-  
   }
+
 const blog_create_post=async(req,res)=>{
   
     const blog=new Blog(req.body)
@@ -32,19 +32,10 @@ const blog_create_post=async(req,res)=>{
 
 
     const blog_delete=async(req, res) => {
-        //const blog=await Blog.find({_id:req.params.id})
         const blog=await Blog.findByIdAndDelete(req.params.id)
-        if (!blog) return res.status(404).send('The genre with the given ID was not found.');
+        if (!blog) return res.status(404).render('404', { title: '404' });;
         res.json({redirect:'/blogs'})
-      
-        //console.log(blog)
-        //res.render('details', { title: 'details' ,blog:blog});
-       // res.redirect('/blogs')
-      
-      
-       // res.send(blog)
-      
-      }
+   }
 
 
 module.exports={
