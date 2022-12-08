@@ -1,0 +1,1 @@
+This file contains Blog APP using NODE JS
